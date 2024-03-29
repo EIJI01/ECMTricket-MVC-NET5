@@ -1,4 +1,6 @@
 ﻿using ECMTricket.Data;
+using ECMTricket.Data.Services;
+using ECMTricket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -8,16 +10,34 @@ namespace ECMTricket.Controllers
 {
     public class ActorsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IActorsService _actorsService;
 
-        public ActorsController(AppDbContext context)
+        public ActorsController(IActorsService actorsService)
         {
-            _context = context;
+            _actorsService = actorsService;
         }
-        public async  Task<IActionResult> Index()
-        {
-            var actors = await _context.Actors.ToListAsync();
+
+        public async Task<IActionResult> Index()
+        {            
+            var actors = await _actorsService.GetAll();
             return View(actors);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("ProfilePictureURL, FullName, Bio")] Actor actor)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+            await _actorsService.Add(actor);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
