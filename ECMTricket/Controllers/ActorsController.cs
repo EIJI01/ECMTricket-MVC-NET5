@@ -39,5 +39,61 @@ namespace ECMTricket.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Detials(int id)
+        {
+            var actorDetial = await _actorsService.GetById(id);
+
+            if (actorDetial == null) return View("NotFound");
+
+            return View(actorDetial);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var actor = await _actorsService.GetById(id);
+
+            if (actor == null) return View("NotFound");
+
+            return View(actor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL, FullName, Bio")] Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+
+            await _actorsService.Update(id, actor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actor = await _actorsService.GetById(id);
+
+            if (actor == null) return View("NotFound");
+
+            return View(actor);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var actor = await _actorsService.GetById(id);
+
+            if (actor == null) return View("NotFound");
+
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+
+            await _actorsService.Delete(actor);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ECMTricket.Data;
+using ECMTricket.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -8,14 +9,16 @@ namespace ECMTricket.Controllers
 {
     public class ProducersController : Controller
     {
-        private readonly AppDbContext _context;
-        public ProducersController(AppDbContext context)
+        private readonly IProducerService _service;
+
+        public ProducersController(IProducerService service)
         {
-            _context = context;
+            _service = service;
         }
+
         public async Task<IActionResult> Index()
         {
-            var producers = await _context.Producers.ToListAsync();
+            var producers = await _service.GetAll();
             return View(producers);
         }
     }

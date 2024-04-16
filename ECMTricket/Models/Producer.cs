@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using ECMTricket.Data.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ECMTricket.Models
 {
-    public class Producer
+    public class Producer : IEntityBase
     {
 
         [Key]

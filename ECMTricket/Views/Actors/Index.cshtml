@@ -25,9 +25,9 @@
                         <td class="align-middle justify-content-lg-center p-3 text-nowrap">@Html.DisplayFor(modelItem => item.FullName)</td>
                         <td class="align-middle p-3 text-nowrap">@Html.DisplayFor(modelItem => item.Bio)</td>
                         <td class="align-middle p-3 text-nowrap">
-                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a>
-                            <a class="btn btn-secondary text-white"><i class="bi bi-eye"></i>Detial</a>
-                            <a class="btn btn-danger text-white"><i class="bi bi-trash"></i>Delete</a>
+                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                            <a class="btn btn-secondary text-white" asp-action="Detials" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Detials</a>
+                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Delete</a>
                         </td>
                     </tr>
                 }

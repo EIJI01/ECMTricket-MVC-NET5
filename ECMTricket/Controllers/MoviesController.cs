@@ -20,5 +20,10 @@ namespace ECMTricket.Controllers
             var movies = await _context.Movies.Include(c => c.Cinema).OrderBy(m => m.Name).ToListAsync();
             return View(movies);
         }
+
+        public async Task<IActionResult> Filter(string filter)
+        {
+            return View();
+        }
     }
 }

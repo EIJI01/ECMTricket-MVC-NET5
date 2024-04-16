@@ -30,6 +30,7 @@ namespace ECMTricket
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnections")));
             services.AddControllersWithViews();
             services.AddScoped<IActorsService, ActorService>();
+            services.AddScoped<IProducerService, ProducerService>();
 
         }
 
